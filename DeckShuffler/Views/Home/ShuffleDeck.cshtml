@@ -6,14 +6,16 @@
 <h2>ShuffleDeck</h2>
 <table class="table-striped" style="padding: 3px">
 
-    @for (int i = 0; i < ViewBag.Cards.Count; i++)
+    @for (int i = 0; i < ViewBag.CardData2.Count; i++)
     {
         <tr>
-            <td>@ViewBag.Card1[i]</td>
-            @*<td>@ViewBag.Card2[i]</td>*@
+            <td>@ViewBag.CardData2[i]["value"] of @ViewBag.CardData2[i]["suit"]</td>
+            @*<td>@ViewBag.C[i]</td>
             <td><img src="@ViewBag.Icons[i]" /></td>
+                <
             <td>
-        </td>
+        </td>*@
+            <img src ="@ViewBag.CardData2[i]["image"]" />
     </tr>
 
     }

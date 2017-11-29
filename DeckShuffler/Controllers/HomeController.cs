@@ -38,29 +38,20 @@ namespace DeckShuffler.Controllers
             HttpWebRequest WR = WebRequest.CreateHttp("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
             WR.UserAgent = ".NET Framework Test";
             HttpWebResponse Response = (HttpWebResponse) WR.GetResponse();
-            
             StreamReader reader = new StreamReader(Response.GetResponseStream());
             string Shuffle = reader.ReadToEnd();
-            JObject ShuffledCards = JObject.Parse(Shuffle);
-            string draw = ShuffledCards["deck_id"].ToString();
+            JObject DeckJson = JObject.Parse(Shuffle);
+            ViewBag.DeckId = DeckJson["deck_id"];
 
-            WR = WebRequest.CreateHttp($"https://deckofcardsapi.com/api/deck/{draw}/draw/?count=1");
-            Response = (HttpWebResponse) WR.GetResponse();
-            StreamReader reader2 = new StreamReader(Response.GetResponseStream());
+            HttpWebRequest NewWR = WebRequest.CreateHttp("https://deckofcardsapi.com/api/deck/" + ViewBag.DeckId + "/draw/?count=5");
+            WR.UserAgent = ".NET Framework Test";
+            HttpWebResponse NewResponse = (HttpWebResponse) NewWR.GetResponse();
+            StreamReader reader2 = new StreamReader(NewResponse.GetResponseStream());
             string CardData2 = reader2.ReadToEnd();
-            ShuffledCards = JObject.Parse(CardData2);
-            draw = ShuffledCards["deck_id"].ToString();
-
-
-            ViewBag.Card1 = ShuffledCards["cards"][0];
-            ViewBag.Card2 = ShuffledCards["cards"]["1"]["images"];
-            ViewBag.Card3 = ShuffledCards["cards"]["2"]["images"];
-            ViewBag.Card4 = ShuffledCards["cards"]["3"]["images"];
-            ViewBag.Card5 = ShuffledCards["cards"]["4"]["images"];
+            JObject NewDeck= JObject.Parse(CardData2);
+            ViewBag.CardData2 = NewDeck["cards"];
 
             return View();
-
-
         }
 
     }
