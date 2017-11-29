@@ -1,0 +1,20 @@
+﻿ 
+@{
+    ViewBag.Title = "ShuffleDeck";
+}
+
+<h2>ShuffleDeck</h2>
+<table class="table-striped" style="padding: 3px">
+
+    @for (int i = 0; i < ViewBag.Cards.Count; i++)
+    {
+        <tr>
+            <td>@ViewBag.Card1[i]</td>
+            @*<td>@ViewBag.Card2[i]</td>*@
+            <td><img src="@ViewBag.Icons[i]" /></td>
+            <td>
+        </td>
+    </tr>
+
+    }
+</table>
